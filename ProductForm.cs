@@ -61,17 +61,12 @@ namespace InventoryManagementSystem
                 productModule.ShowDialog();
 
             }
-            else if (colName == "Delete")
+            else if (colName == "Add")
             {
-                string productId = dataGridViewProduct.Rows[e.RowIndex].Cells[0].Value.ToString();
-
-                if (MessageBox.Show("Are You Sure You Want To Delete this Product ?", "Delete Record", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-                {
-                    Admin.DeleteProduct(Convert.ToInt32(productId));
-                    MessageBox.Show("Record has been successfully deleted");
-                }
+                AddStock_Module addStock = new AddStock_Module();
+                addStock.productId.Text = dataGridViewProduct.Rows[e.RowIndex].Cells[0].Value.ToString();
+                addStock.ShowDialog();
             }
-            LoadProduct();
         }
 
         private void searchInput_TextChanged(object sender, EventArgs e)

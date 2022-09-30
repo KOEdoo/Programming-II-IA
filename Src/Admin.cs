@@ -220,7 +220,9 @@ namespace InventoryManagementSystem.Src
                 SqlCommand sqlCommand = new SqlCommand(query, Connection);
                 sqlCommand.Parameters.AddWithValue("@Id", id);
                 sqlCommand.Parameters.AddWithValue("@Stock", stock);
-
+                Connection.Open();
+                sqlCommand.ExecuteNonQuery();
+                MessageBox.Show("Stock added");
 
             }
             catch (Exception e)

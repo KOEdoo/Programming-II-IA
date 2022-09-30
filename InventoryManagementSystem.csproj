@@ -48,6 +48,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddStock Module.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddStock Module.Designer.cs">
+      <DependentUpon>AddStock Module.cs</DependentUpon>
+    </Compile>
     <Compile Include="AdminReport.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -146,6 +152,9 @@
     <Compile Include="UserModule.Designer.cs">
       <DependentUpon>UserModule.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="AddStock Module.resx">
+      <DependentUpon>AddStock Module.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="AdminReport.resx">
       <DependentUpon>AdminReport.cs</DependentUpon>
     </EmbeddedResource>
