@@ -29,7 +29,6 @@ namespace InventoryManagementSystem.Src
                 {
                     start = Convert.ToInt32(reader["isEmpty"]);
                 }
-                MessageBox.Show(Convert.ToString(start));
             }
             catch (Exception e)
             {
