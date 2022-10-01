@@ -30,5 +30,9 @@ namespace InventoryManagementSystem
             Admin.StockProduct(id, stock);
             this.Dispose();
         }
+        private void cancelButton_Click(object sender, EventArgs e)
+        {
+            this.Dispose();
+        }
     }
 }

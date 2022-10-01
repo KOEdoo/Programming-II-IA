@@ -35,6 +35,7 @@
             this.addStock = new System.Windows.Forms.NumericUpDown();
             this.addButton = new System.Windows.Forms.Button();
             this.productId = new System.Windows.Forms.Label();
+            this.cancelButton = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxClose)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.addStock)).BeginInit();
@@ -87,7 +88,7 @@
             this.addButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.addButton.Font = new System.Drawing.Font("HP Simplified", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.addButton.ForeColor = System.Drawing.Color.White;
-            this.addButton.Location = new System.Drawing.Point(138, 154);
+            this.addButton.Location = new System.Drawing.Point(96, 154);
             this.addButton.Name = "addButton";
             this.addButton.Size = new System.Drawing.Size(86, 44);
             this.addButton.TabIndex = 26;
@@ -105,17 +106,34 @@
             this.productId.Text = "productId";
             this.productId.Visible = false;
             // 
+            // cancelButton
+            // 
+            this.cancelButton.BackColor = System.Drawing.Color.Red;
+            this.cancelButton.FlatAppearance.BorderSize = 0;
+            this.cancelButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cancelButton.Font = new System.Drawing.Font("HP Simplified", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cancelButton.ForeColor = System.Drawing.Color.White;
+            this.cancelButton.Location = new System.Drawing.Point(206, 154);
+            this.cancelButton.Name = "cancelButton";
+            this.cancelButton.Size = new System.Drawing.Size(86, 44);
+            this.cancelButton.TabIndex = 28;
+            this.cancelButton.Text = "Cancel";
+            this.cancelButton.UseVisualStyleBackColor = false;
+            this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
+            // 
             // AddStock_Module
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(414, 234);
+            this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.productId);
             this.Controls.Add(this.addButton);
             this.Controls.Add(this.addStock);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "AddStock_Module";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "AddStock_Module";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
@@ -134,5 +152,6 @@
         private System.Windows.Forms.NumericUpDown addStock;
         public System.Windows.Forms.Button addButton;
         public System.Windows.Forms.Label productId;
+        public System.Windows.Forms.Button cancelButton;
     }
 }
