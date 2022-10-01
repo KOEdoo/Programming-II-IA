@@ -15,6 +15,7 @@ namespace InventoryManagementSystem
     {
         public LoginForm()
         {
+            Admin.firstStart();
             InitializeComponent();
         }
 

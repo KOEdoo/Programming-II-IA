@@ -15,7 +15,35 @@ namespace InventoryManagementSystem.Src
         public Admin()
         {
         }
-
+        
+        public static void firstStart()
+        {
+            int start = 0;
+            try
+            {
+                string query = " SELECT CASE WHEN EXISTS(SELECT 1 FROM [user]) THEN 0 ELSE 1 END AS isEmpty";
+                SqlCommand sqlCommand = new SqlCommand(query, Connection);
+                Connection.Open();
+                SqlDataReader reader = sqlCommand.ExecuteReader();
+                while (reader.Read())
+                {
+                    start = Convert.ToInt32(reader["isEmpty"]);
+                }
+                MessageBox.Show(Convert.ToString(start));
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.ToString());
+            }
+            finally
+            {
+                Connection.Close();
+                if (start > 0)
+                {
+                    Admin.CreateUser("admin", "Admin", "admin", "admin1122", "");
+                }
+            }
+        }
         public static void AddCategory(string name)
         {
             try
