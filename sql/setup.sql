@@ -69,5 +69,13 @@ tillId INT,
 total MONEY,
 PRIMARY KEY (transactionId),
 CONSTRAINT transaction_till FOREIGN KEY (tillId) REFERENCES till (tillId));
+ CREATE TABLE reorders
+(reorderId INT NOT NULL IDENTITY(1,1),
+productId INT,
+reorderDate DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+PRIMARY KEY (reorderId),
+CONSTRAINT reorder_product FOREIGN KEY (productId) REFERENCES product(productId)); 
 
 GO
+
+CREATE TRIGGER reorderLevel ON product AFTER UPDATE AS  BEGIN SELECT CASE WHEN reorderLevel<1 THEN 0 WHEN stock>reorderLevel THEN 0 ELSE 1 END AS reorderTime FROM inserted  END 
