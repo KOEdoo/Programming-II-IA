@@ -119,6 +119,7 @@ namespace InventoryManagementSystem
             cartList.Clear();
             dataGridViewCart.Rows.Clear();
             dataGridViewCart.Refresh();
+            Total = 0m;
             LoadProduct();
         }
         private void Clear()
