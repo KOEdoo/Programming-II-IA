@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.TaskbarClock;
+using System.Collections;
 
 namespace InventoryManagementSystem.Src
 {
@@ -342,7 +343,6 @@ namespace InventoryManagementSystem.Src
                 string query = "SELECT till.tillId, [transaction].transactionId, [transaction].total, [user].name  FROM till INNER JOIN [user] ON (till.userId = [user].userId) INNER JOIN [transaction] ON (till.tillId = [transaction].tillId)";
                 if (all == false)
                     query += "WHERE  CAST(time AS DATE) = CAST(GETDATE() AS DATE)";
-                SqlCommand sqlCommand = new SqlCommand(query, Connection);
                 Connection.Open();
                 SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(query, Connection);
                 using (sqlDataAdapter)

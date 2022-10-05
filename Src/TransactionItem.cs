@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Linq;
 
 namespace InventoryManagementSystem.Src
 {
@@ -69,7 +70,7 @@ namespace InventoryManagementSystem.Src
 
         public void UpdateStock(int productId, int quantity)
         {
-
+            int reorder = 0;
             string connectionString = ConfigurationManager.ConnectionStrings["InventorySystem.Properties.Settings.LearningDb2ConnectionString"].ConnectionString;
             SqlConnection connection = new SqlConnection(connectionString);
             try
@@ -77,7 +78,11 @@ namespace InventoryManagementSystem.Src
                 string query = string.Format("UPDATE product SET stock -= {0} WHERE productId = {1}", quantity, productId);
                 SqlCommand sqlCommand = new SqlCommand(query, connection);
                 connection.Open();
-                sqlCommand.ExecuteNonQuery();
+                SqlDataReader reader = sqlCommand.ExecuteReader();
+                while (reader.Read())
+                {
+                    reorder = Convert.ToInt16(reader[0]);
+                }
             }
             catch (Exception e)
             {
@@ -86,6 +91,26 @@ namespace InventoryManagementSystem.Src
             finally
             {
                 connection.Close();
+            }
+
+            if(reorder > 0)
+            {
+                try
+                {
+                    string query = "INSERT INTO reorders(productId) VALUES (@ProductId)";
+                    SqlCommand sqlCommand = new SqlCommand(query, connection);
+                    sqlCommand.Parameters.AddWithValue("@ProductId", productId);
+                    connection.Open();
+                    sqlCommand.ExecuteNonQuery();
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show(e.ToString());
+                }
+                finally
+                {
+                    connection.Close();
+                }
             }
         }
     }
