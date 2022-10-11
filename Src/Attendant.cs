@@ -117,6 +117,7 @@ namespace InventoryManagementSystem.Src
                 }
                 for (int i = 0; i < transactionItemList.Count; i++)
                 {
+                   
                     if (transactionItem.Equals((TransactionItem)transactionItemList[i]))
                     {
                         TransactionItem currentItem = (TransactionItem)transactionItemList[i];
@@ -126,7 +127,7 @@ namespace InventoryManagementSystem.Src
                         transactionItemList.RemoveAt(i);
                     }
                 }
-                transactionItemList.Add(transactionItem);
+                    transactionItemList.Add(transactionItem);
             }
         }
 
@@ -188,18 +189,24 @@ namespace InventoryManagementSystem.Src
 
         public static void GenerateReceipt(int[] transactionItemId)
         {
-            DataTable receipt = new DataTable();
-            string query = string.Format("SELECT product.name, transactionItem.quantity, transactionItem.unitPrice, transactionItem.price FROM transactionItem INNER JOIN product ON(transactionItem.productId = product.productId) WHERE transactionItem.transactionItemId IN ({0})", string.Join(",", transactionItemId));
-
-
-            SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(query, Connection);
-            using (sqlDataAdapter)
+            try
             {
-                sqlDataAdapter.Fill(receipt);
-            }
+                DataTable receipt = new DataTable();
+                string query = string.Format("SELECT product.name, transactionItem.quantity, transactionItem.unitPrice, transactionItem.price FROM transactionItem INNER JOIN product ON(transactionItem.productId = product.productId) WHERE transactionItem.transactionItemId IN ({0})", string.Join(",", transactionItemId));
 
-            Receipt receiptView = new Receipt(receipt);
-            receiptView.Show();
+
+                SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(query, Connection);
+                using (sqlDataAdapter)
+                {
+                    sqlDataAdapter.Fill(receipt);
+                }
+
+                Receipt receiptView = new Receipt(receipt);
+                receiptView.Show();
+            }catch(Exception e)
+            {
+                MessageBox.Show(e.ToString());
+            }
         }
 
         public static DataTable GetDailyReport(int id)

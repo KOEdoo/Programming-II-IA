@@ -78,13 +78,20 @@ namespace InventoryManagementSystem
             try
             {
                 Attendant.FetchProduct(productBarcode.Text, ref cartList, Convert.ToInt32(productQty.Text));
-                dataGridViewCart.Rows.Add(productName.Text, productQty.Value, productPrice.Text, totalPrice.Text);
-                Total += Convert.ToDecimal(totalPrice.Text);
-                totalPriceLabel.Text = Total.ToString();
+                if(productQty.Value > 0)
+                {
+                    dataGridViewCart.Rows.Add(productName.Text, productQty.Value, productPrice.Text, totalPrice.Text);
+                    Total += Convert.ToDecimal(totalPrice.Text);
+                    totalPriceLabel.Text = Total.ToString();
+                }
+                else
+                {
+                    MessageBox.Show("Invalid Input", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
             }
             catch(Exception ex)
             {
-                MessageBox.Show("Invalid Input", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(ex.ToString());
             }
             finally
             {
@@ -108,19 +115,26 @@ namespace InventoryManagementSystem
 
         private void checkoutButton_Click(object sender, EventArgs e)
         {
-              
-            if (MessageBox.Show("Please Confirm Order" , "Order Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            if (cartList.Count > 0)
             {
-                Attendant.MakeSale(cartList, Till);
+                if (MessageBox.Show("Please Confirm Order" , "Order Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    Attendant.MakeSale(cartList, Till);
+                }
+
+
+                totalPriceLabel.Text = "";
+                cartList.Clear();
+                dataGridViewCart.Rows.Clear();
+                dataGridViewCart.Refresh();
+                Total = 0m;
+                LoadProduct();
             }
+            else
+            {
+                MessageBox.Show("Cart Empty", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-
-            totalPriceLabel.Text = "";
-            cartList.Clear();
-            dataGridViewCart.Rows.Clear();
-            dataGridViewCart.Refresh();
-            Total = 0m;
-            LoadProduct();
+            }
         }
         private void Clear()
         {
