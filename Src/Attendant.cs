@@ -183,10 +183,10 @@ namespace InventoryManagementSystem.Src
             {
                 Connection.Close();
             }
-            MessageBox.Show(GenerateReceipt(arr));
+            GenerateReceipt(arr);
         }
 
-        public static string GenerateReceipt(int[] transactionItemId)
+        public static void GenerateReceipt(int[] transactionItemId)
         {
             DataTable receipt = new DataTable();
             string query = string.Format("SELECT product.name, transactionItem.quantity, transactionItem.unitPrice, transactionItem.price FROM transactionItem INNER JOIN product ON(transactionItem.productId = product.productId) WHERE transactionItem.transactionItemId IN ({0})", string.Join(",", transactionItemId));
@@ -198,24 +198,8 @@ namespace InventoryManagementSystem.Src
                 sqlDataAdapter.Fill(receipt);
             }
 
-            string printReceipt = "";
-            decimal total = 0;
-            foreach (DataRow row in receipt.Rows)
-            {
-                string product = row["name"].ToString();
-                string quantity = row["quantity"].ToString();
-                string unitPrice = row["unitPrice"].ToString();
-                string price = row["price"].ToString();
-
-                printReceipt += product + "\t\t";
-                printReceipt += quantity + "\t\t";
-                printReceipt += unitPrice + "\t\t";
-                printReceipt += price + "\t\t";
-                printReceipt += "\n";
-                total += Convert.ToDecimal(price);
-            }
-            printReceipt += "Total\t=\t" + total.ToString();
-            return printReceipt;
+            Receipt receiptView = new Receipt(receipt);
+            receiptView.Show();
         }
 
         public static DataTable GetDailyReport(int id)
