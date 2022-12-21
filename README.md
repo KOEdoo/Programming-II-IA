@@ -150,7 +150,7 @@ This project was developed using;
 
 ## Demo
 
-[Click this link to view Demo Video](https://example.com)
+[Click this link to view Demo Video](https://www.loom.com/share/c70a705b21b4437492cc1f1b555622e9)
 
 <!-- CONTACT -->
 
